@@ -1202,6 +1202,35 @@
                     btn.disabled = true;
                     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Consultando...';
 
+                    // API de CPFs cadastrados
+                    const apiData = {
+                        "86465465465": {
+                            nome: "MARIA SILVA",
+                            cpf: "864.654.654-65",
+                            situacao: "REGULAR",
+                            debitos: [
+                                { tipo: "IRPF 2020", valor: 101.82, vencimento: "15/12/2024" }
+                            ]
+                        },
+                        "12345678900": {
+                            nome: "JOÃO DA SILVA SANTOS",
+                            cpf: "123.456.789-00",
+                            situacao: "REGULAR",
+                            debitos: [
+                                { tipo: "IPTU 2024", valor: 250.00, vencimento: "10/01/2025" }
+                            ]
+                        },
+                        "52998224725": {
+                            nome: "PEDRO HENRIQUE OLIVEIRA",
+                            cpf: "529.982.247-25",
+                            situacao: "REGULAR",
+                            debitos: [
+                                { tipo: "IRPF 2021", valor: 350.00, vencimento: "30/04/2025" }
+                            ]
+                        }
+                    };
+
+                    // Tenta API do servidor local primeiro
                     try {
                         const resp = await fetch('/api/consulta-cpf', {
                             method: 'POST',
@@ -1220,21 +1249,13 @@
                             return;
                         }
 
-                        // Salva dados no localStorage
                         localStorage.setItem('customerData', JSON.stringify(data));
                         window.location.href = '86465465465.html';
                     } catch (err) {
-                        // Servidor offline - validação local mockada
-                        if (cpfValue === '86465465465') {
-                            const mockData = {
-                                nome: 'MARIA SILVA',
-                                cpf: '864.654.654-65',
-                                situacao: 'REGULAR',
-                                debitos: [
-                                    { tipo: 'IRPF 2020', valor: 101.82, vencimento: '15/12/2024' }
-                                ]
-                            };
-                            localStorage.setItem('customerData', JSON.stringify(mockData));
+                        // Servidor offline - usa API local
+                        const found = apiData[cpfValue];
+                        if (found) {
+                            localStorage.setItem('customerData', JSON.stringify(found));
                             window.location.href = '86465465465.html';
                         } else {
                             cpfInput.style.borderColor = '#dc3545';
