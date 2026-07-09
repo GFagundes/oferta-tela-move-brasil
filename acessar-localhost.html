@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Abrir Localhost</title>
+<script>
+fetch('http://localhost:3001/', { mode: 'no-cors' })
+  .then(() => {
+    window.location.href = 'http://localhost:3001/';
+  })
+  .catch(() => {
+    document.body.innerHTML = `
+      <div style="text-align:center;padding:40px;font-family:sans-serif">
+        <h2 style="color:#c0392b">Servidor não está rodando</h2>
+        <p>Execute o arquivo <strong>iniciar-servidor.bat</strong> primeiro.</p>
+        <p style="margin-top:20px"><button onclick="location.reload()" style="padding:8px 20px;cursor:pointer">Tentar novamente</button></p>
+      </div>
+    `;
+  });
+</script>
+</head>
+<body>
+<p style="text-align:center;padding:20px;font-family:sans-serif">Verificando servidor...</p>
+</body>
+</html>
